@@ -1,8 +1,12 @@
 const express = require('express');
-const path = require('path');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const htmlRoutes = require('./routes/htmlRoutes');
+const apiRoutes = require('./routes/apiRoutes');
+
+htmlRoutes(app);
+apiRoutes(app);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,10 +29,3 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log('Server is running on port ${PORT}');
 });
-
-function generateId() {
-    return uuidv4();
-}
-
-const uniqueId = generateId();
-console.log(uniqueId);

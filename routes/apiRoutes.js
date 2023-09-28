@@ -6,7 +6,7 @@ module.exports = function (app) {
         let data = fs.readFileSync('app/db/db.json', 'utf8');
         res.json(JSON.parse(data));
     });
-}
+
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
     const data = fs.readFileSync('db.json', 'utf8');
@@ -32,4 +32,12 @@ app.delete('/api/notes', (req, res) => {
 
     res.json(newNote);
 });
+};
+
+function generateId() {
+    return uuidv4();
+}
+
+const uniqueId = generateId();
+console.log(uniqueId);
 

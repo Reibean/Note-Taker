@@ -1,7 +1,5 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,19 +12,6 @@ app.get('/api/notes', (req, res) => {
     const data = fs.readFileSync('db.json', 'utf8');
     const notes = JSON.parse(data);
     res.json(notes);
-});
-
-app.post('/api/notes', (req, res) => {
-    const newNote = req.body;
-    const data = fs.readFileSync('db.json', 'utf8');
-    const notes = JSON.parse(data);
-
-    newNote.id = generateId();
-
-    notes.push(newNote);
-    fs.writeFileSync('db.json', JSON.stringify(notes, null, 2));
-
-    res.json(newNote);
 });
 
 app.get('/notes', (req, res) => {

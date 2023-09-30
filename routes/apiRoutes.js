@@ -21,7 +21,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete('/api/notes', (req, res) => {
-    const newNote = req.body;
+    const noteId = req.params.id;
     const data = fs.readFileSync('db.json', 'utf8');
     const notes = JSON.parse(data);
 

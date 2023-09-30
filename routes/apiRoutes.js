@@ -3,7 +3,7 @@ const uniqid = require("uniqid");
 
 module.exports = function (app) {
     app.get('/api/notes', function (req, res) {
-        let data = fs.readFileSync('app/db/db.json', 'utf8');
+        let data = fs.readFileSync('db/db.json', 'utf8');
         res.json(JSON.parse(data));
     });
 
@@ -14,19 +14,19 @@ app.post('/api/notes', (req, res) => {
         id: uniqid(),
       };
     
-    let data = fs.readFileSync("app/db/db.json", "utf8");
+    let data = fs.readFileSync("db/db.json", "utf8");
     const notesJSON = JSON.parse(data);
     notesJSON.push(newNote);
-    fs.writeFileSync('app/db/db.json', JSON.stringify(notes, null, 2));
+    fs.writeFileSync('db/db.json', JSON.stringify(notesJSON, null, 2));
 
     res.json(newNote);
 });
 
-app.delete('/notes/:id', (req, res) => {
-    let data = fs.readFileSync("app/db/db.json", "utf-8");
+app.delete('api/notes/:id', (req, res) => {
+    let data = fs.readFileSync("db/db.json", "utf-8");
     const notesJSON = JSON.parse(data);
     const notes = notesJSON.filter((note) => note.id != req.params.id);
-    fs.writeFileSync("/app/db/db.json", JSON.stringify(notes));
+    fs.writeFileSync("db/db.json", JSON.stringify(notes, null, 2));
     res.json(notes);
 });
 };

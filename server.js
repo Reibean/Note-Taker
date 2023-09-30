@@ -5,7 +5,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 
-app.use(express.static('public'));
+app.use(express.static(path.join('public')));
 
 const htmlRoutes = require('./routes/htmlRoutes');
 const apiRoutes = require('./routes/apiRoutes');

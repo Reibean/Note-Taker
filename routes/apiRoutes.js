@@ -2,12 +2,12 @@ const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = function (app) {
-    app.get('/api/notes', function (req, res) {
+    app.get('/api/notes.html', function (req, res) {
         let data = fs.readFileSync('app/db/db.json', 'utf8');
         res.json(JSON.parse(data));
     });
 
-app.post('/api/notes', (req, res) => {
+app.post('/api/notes.html', (req, res) => {
     const newNote = req.body;
     const data = fs.readFileSync('db.json', 'utf8');
     const notes = JSON.parse(data);
@@ -20,7 +20,7 @@ app.post('/api/notes', (req, res) => {
     res.json(newNote);
 });
 
-app.delete('/api/notes', (req, res) => {
+app.delete('/api/notes.html', (req, res) => {
     const noteId = req.params.id;
     const data = fs.readFileSync('db.json', 'utf8');
     const notes = JSON.parse(data);

@@ -16,4 +16,4 @@ apiRoutes(app);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`listening on port http://localhost:${PORT}`));

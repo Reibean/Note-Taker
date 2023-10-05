@@ -2,12 +2,12 @@ const fs = require('fs');
 const uniqid = require("uniqid");
 
 module.exports = function (app) {
-    app.get('/api/notes', function (req, res) {
+    app.get('/notes', function (req, res) {
         let data = fs.readFileSync('db/db.json', 'utf8');
         res.json(JSON.parse(data));
     });
 
-app.post('/api/notes', (req, res) => {
+app.post('/notes', (req, res) => {
     console.log('Received POST request', req.body);
     const newNote = {
         ...req.body,
@@ -22,7 +22,7 @@ app.post('/api/notes', (req, res) => {
     res.json(newNote);
 });
 
-app.delete('api/notes/:id', (req, res) => {
+app.delete('/notes/:id', (req, res) => {
     let data = fs.readFileSync("db/db.json", "utf-8");
     const notesJSON = JSON.parse(data);
     const notes = notesJSON.filter((note) => note.id != req.params.id);

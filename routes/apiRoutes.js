@@ -1,32 +1,41 @@
-const fs = require('fs');
+const fs = require("fs");
 const uniqid = require("uniqid");
 
 module.exports = function (app) {
-    app.get('/notes', function (req, res) {
-        let data = fs.readFileSync('db/db.json', 'utf8');
-        res.json(JSON.parse(data));
-    });
-
-app.post('/notes', (req, res) => {
-    console.log('Received POST request', req.body);
-    const newNote = {
-        ...req.body,
-        id: uniqid(),
-      };
-    
+  // Get notes
+  app.get("/notes", function (req, res) {
     let data = fs.readFileSync("db/db.json", "utf8");
-    const notesJSON = JSON.parse(data);
-    notesJSON.push(newNote);
-    fs.writeFileSync('db/db.json', JSON.stringify(notesJSON, null, 2));
+    res.json(JSON.parse(data));
+  });
 
-    res.json(newNote);
+  // Create a new note
+app.post("/notes", function (req, res) {
+  const newNote = {
+    ...req.body,
+    id: uniqid(),
+  };
+
+  let data = fs.readFileSync("db/db.json", "utf8");
+
+  const notesJSON = JSON.parse(data);
+
+  notesJSON.push(newNote);
+
+  fs.writeFileSync("db/db.json", JSON.stringify(notesJSON));
+
+  res.json(notesJSON);
 });
 
-app.delete('/notes/:id', (req, res) => {
-    let data = fs.readFileSync("db/db.json", "utf-8");
-    const notesJSON = JSON.parse(data);
-    const notes = notesJSON.filter((note) => note.id != req.params.id);
-    fs.writeFileSync("db/db.json", JSON.stringify(notes, null, 2));
-    res.json(notes);
+// Delete a note by ID
+app.delete("/notes/:id", function (req, res) {
+  let data = fs.readFileSync("db/db.json", "utf8");
+
+  const notesJSON = JSON.parse(data);
+
+  const notes = notesJSON.filter((note) => note.id != req.params.id);
+
+  fs.writeFileSync("db/db.json", JSON.stringify(notes));
+
+  res.json(notes);
 });
 };

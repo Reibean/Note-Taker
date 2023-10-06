@@ -3,13 +3,13 @@ const uniqid = require("uniqid");
 
 module.exports = function (app) {
   // Get notes
-  app.get("/notes", function (req, res) {
+  app.get("/api/notes", function (req, res) {
     let data = fs.readFileSync("db/db.json", "utf8");
     res.json(JSON.parse(data));
   });
 
   // Create a new note
-app.post("/notes", function (req, res) {
+app.post("/api/notes", function (req, res) {
   const newNote = {
     ...req.body,
     id: uniqid(),
@@ -27,7 +27,7 @@ app.post("/notes", function (req, res) {
 });
 
 // Delete a note by ID
-app.delete("/notes/:id", function (req, res) {
+app.delete("/api/notes/:id", function (req, res) {
   let data = fs.readFileSync("db/db.json", "utf8");
 
   const notesJSON = JSON.parse(data);

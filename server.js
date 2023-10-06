@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, './app/public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 require('./routes/apiRoutes.js')(app);
 
